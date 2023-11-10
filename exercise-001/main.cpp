@@ -6,7 +6,9 @@
 
 #include "CLI/CLI.hpp"
 #include "config.h"
-
+ int foo;
+ static int bss;
+ int stack = -1, inp_array[4];
 auto main(int argc, char **argv) -> int
 {
     auto count{20};
@@ -24,12 +26,24 @@ auto main(int argc, char **argv) -> int
     {
         return app.exit(e);
     }
-
+    
     /**
      * The {fmt} lib is a cross platform library for printing and formatting text
      * it is much more convenient than std::cout and printf
      * More info at https://fmt.dev/latest/api.html
      */
-    fmt::print("Hello, {}!\n", app.get_name());
+    fmt::print("Value of variable foo {} address of variable foo{}\n", 
+    foo,
+    fmt::ptr(&foo));
+
+    fmt::print("Value of variable bss {} address of variable bss{}\n", 
+    bss,
+    fmt::ptr(&bss));
+
+    fmt::print("Value of variable stack {} address of variable stack{}\n", 
+    stack,
+    fmt::ptr(&stack));
+
     return 0; /* exit gracefully*/
+
 }
